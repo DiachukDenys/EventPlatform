@@ -12,15 +12,23 @@ const eventRoutes = require('./routes/events');
 const path = require('path');
 const paymentRoutes = require('./routes/payments');
 const volunteersRouter = require('./routes/volunteers');
+const allowed = [
+  'https://event-platform-nine-kappa.vercel.app',
+  'http://localhost:3000'
+];
+
 app.use(
   cors({
-    origin:"*",
-   
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);          // дозволити Postman / curl
+      cb(null, allowed.includes(origin));
+    },
+    credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true                // якщо передаєш куки / JWT у cookie
+    allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
+
 app.options('*', cors());
 
  // Завантаження змінних оточення
