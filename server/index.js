@@ -14,10 +14,8 @@ const paymentRoutes = require('./routes/payments');
 const volunteersRouter = require('./routes/volunteers');
 app.use(
   cors({
-    origin: [
-      'https://event-platform-nine-kappa.vercel.app', // прод‑фронт
-      'http://localhost:3000'                         // дев‑фронт
-    ],
+    origin:"*",
+   
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true                // якщо передаєш куки / JWT у cookie
