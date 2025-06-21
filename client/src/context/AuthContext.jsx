@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const fetchMe = async () => {
     try {
       const { data } = await axios.get(
-        'http://localhost:5000/api/auth/me',
+        `${process.env.REACT_APP_API_URL}/api/auth/me`,
         { withCredentials: true }
       );
       setUser(data.user);
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (payload) => {
     try {
       const { data } = await axios.post(
-        'http://localhost:5000/api/auth/register',
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
         payload,
         { withCredentials: true }
       );
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (payload) => {
     try {
       const { data } = await axios.post(
-        'http://localhost:5000/api/auth/login',
+        `${process.env.REACT_APP_API_URL}/api/auth/login`,
         payload,
         { withCredentials: true }
       );
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axios.post(
-        'http://localhost:5000/api/auth/logout',
+        `${process.env.REACT_APP_API_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       );
@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }) => {
       formData.append('photo', file);
 
       const { data } = await axios.post(
-        'http://localhost:5000/api/auth/upload-photo',
+        `${process.env.REACT_APP_API_URL}/api/auth/upload-photo`,
         formData,
         {
           withCredentials: true,
