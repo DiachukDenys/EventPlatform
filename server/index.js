@@ -38,4 +38,4 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/volunteers', volunteersRouter);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Сервер на порті ${PORT}`));
+app.listen(() => console.log(`🚀 Сервер на порті ${PORT}`));
