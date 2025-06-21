@@ -23,6 +23,7 @@ app.use(
     credentials: true                // якщо передаєш куки / JWT у cookie
   })
 );
+app.options('*', cors());
 
  // Завантаження змінних оточення
 app.use(morgan('dev'));
