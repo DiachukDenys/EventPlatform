@@ -16,7 +16,6 @@ app.use(cors({
   origin: 'https://event-platform-nine-kappa.vercel.app',
   credentials: true
 }));
-app.options('*', cors());
 
 
  // Завантаження змінних оточення
