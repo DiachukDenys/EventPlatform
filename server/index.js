@@ -12,30 +12,12 @@ const eventRoutes = require('./routes/events');
 const path = require('path');
 const paymentRoutes = require('./routes/payments');
 const volunteersRouter = require('./routes/volunteers');
-const allowedOrigins = [
-  'https://event-platform-nine-kappa.vercel.app',
-  'http://localhost:3000'
-];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // 1) Postman / curl (origin === undefined) — дозволяємо
-      // 2) Якщо origin у whitelist — дозволяємо
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      // 3) Інакше — блокуємо
-      return callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization']
-  })
-);
-
-/* Обробляємо pre‑flight для будь‑якого шляху */
+app.use(cors({
+  origin: 'https://event-platform-nine-kappa.vercel.app',
+  credentials: true
+}));
 app.options('*', cors());
+
 
  // Завантаження змінних оточення
 app.use(morgan('dev'));
