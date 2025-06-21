@@ -13,7 +13,7 @@ const path = require('path');
 const paymentRoutes = require('./routes/payments');
 const volunteersRouter = require('./routes/volunteers');
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://event-platform-nine-kappa.vercel.app',
   credentials: true
 }));
 
