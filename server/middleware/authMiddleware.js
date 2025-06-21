@@ -5,14 +5,19 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const protect = async (req, res, next) => {
   try {
-    const token = req.cookies.token;  // <-- беремо токен з cookie
+    // 1) з cookie
+    let token = req.cookies?.token;
+
+    // 2) або з Authorization: Bearer <token>
+    if (!token && req.headers.authorization?.startsWith('Bearer ')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
 
     if (!token) {
       return res.status(401).json({ message: 'Токен відсутній' });
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
-
     req.user = await User.findById(decoded.id).select('-password');
 
     if (!req.user) {
@@ -20,11 +25,12 @@ const protect = async (req, res, next) => {
     }
 
     next();
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(401).json({ message: 'Неавторизований доступ' });
   }
 };
+
 const authorizeRoles = (...allowed) => {
   return (req, res, next) => {
     if (!req.user) {
